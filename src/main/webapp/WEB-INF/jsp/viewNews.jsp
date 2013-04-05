@@ -61,6 +61,12 @@
                     </div>
                 </div>
             </div>
+            <div class="page-container" style="display:none">
+            	<ul>
+            		<li><a class="news-reader-prev-link" href="javascript:;" data-role="button" data-inline="true">Previous</a></li>
+            		<li><a class="news-reader-next-link" href="javascript:;" data-role="button" data-inline="true">Next</a></li>
+            	</ul>
+            </div>
         </div>
     </div>
        

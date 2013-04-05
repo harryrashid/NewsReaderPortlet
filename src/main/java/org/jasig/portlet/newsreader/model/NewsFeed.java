@@ -29,7 +29,10 @@ import org.apache.commons.lang.builder.ToStringStyle;
 
 public class NewsFeed implements Serializable {
 
-    private List<NewsFeedItem> entries;
+	private static final long serialVersionUID = 4408083326476799034L;
+	
+	private List<NewsFeedItem> entries;
+    private Integer pageCount = 1;
     private String author;
     private String link;
     private String title;
@@ -43,7 +46,15 @@ public class NewsFeed implements Serializable {
         this.entries = entries;
     }
     
-    public String getAuthor() {
+	public Integer getPageCount() {
+		return pageCount;
+	}
+
+	public void setPageCount(Integer pageCount) {
+		this.pageCount = pageCount;
+	}
+
+	public String getAuthor() {
         return author;
     }
 

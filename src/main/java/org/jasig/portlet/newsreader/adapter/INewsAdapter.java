@@ -29,6 +29,6 @@ import org.jasig.portlet.newsreader.model.NewsFeed;
  */
 public interface INewsAdapter {
 
-    public NewsFeed getSyndFeed(NewsConfiguration config, PortletRequest request) throws NewsException;
+    public NewsFeed getSyndFeed(NewsConfiguration config, PortletRequest request, int page, int maxStoriesPerPage) throws NewsException;
 
 }

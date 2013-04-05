@@ -124,7 +124,9 @@ if (!upnews.init) {
                 id: null,
                 name: null
             };
-        }
+        },
+        previousPage: function() {},
+        nextPage: function() {}
     });
     
     upnews.NewsFeedDetails = Backbone.Model.extend({

@@ -19,8 +19,6 @@
 
 package org.jasig.portlet.newsreader.adapter;
 
-import java.lang.IllegalArgumentException;
-
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -40,9 +38,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jasig.portlet.newsreader.NewsConfiguration;
 import org.jasig.portlet.newsreader.model.NewsFeed;
+import org.jasig.portlet.newsreader.model.NewsFeedItem;
 import org.jasig.portlet.newsreader.processor.RomeNewsProcessorImpl;
 import org.owasp.validator.html.PolicyException;
 import org.owasp.validator.html.ScanException;
+import org.springframework.beans.support.PagedListHolder;
 
 import com.sun.syndication.io.FeedException;
 
@@ -79,7 +79,7 @@ public class RomeAdapter implements INewsAdapter {
     /* (non-Javadoc)
       * @see org.jasig.portlet.newsreader.adapter.INewsAdapter#getSyndFeed(org.jasig.portlet.newsreader.NewsConfiguration, javax.portlet.PortletRequest)
       */
-    public NewsFeed getSyndFeed(NewsConfiguration config, PortletRequest request) throws NewsException {
+    public NewsFeed getSyndFeed(NewsConfiguration config, PortletRequest request, int page, int maxStoriesPerPage) throws NewsException {
 
         NewsFeed feed = null;
 
@@ -91,6 +91,10 @@ public class RomeAdapter implements INewsAdapter {
         String titlePolicy = prefs.getValue( "titlePolicy", "antisamy-textonly");
         String descriptionPolicy = prefs.getValue( "descriptionPolicy", "antisamy-textonly");
 
+        //TODO
+        //support url in a template format that allows request time params to be
+        //used in urls (e.g. http://host/rss.xml?maxStoriesPerPage={maxStoriesPerPage}&page={page}
+        
         // Get the URL for this feed
         // If there is a 2nd URL, it is a fall-back in case the first does not work.
         // Using two URLs is handy if your first URL happens to be a local file cache
@@ -146,6 +150,14 @@ public class RomeAdapter implements INewsAdapter {
         }
 
         // return the event list or null if the feed was not available.
+        
+        if (feed != null) {      
+        	PagedListHolder<NewsFeedItem> entriesList = new PagedListHolder<NewsFeedItem>(feed.getEntries());
+        	entriesList.setPageSize(maxStoriesPerPage);
+        	entriesList.setPage(page);
+        	feed.setEntries(entriesList.getPageList());
+        	feed.setPageCount(entriesList.getPageCount());
+        }
         return feed;
     }
 

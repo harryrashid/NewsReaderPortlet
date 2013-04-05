@@ -135,19 +135,19 @@ public class AjaxNewsController {
 	            // get an instance of the adapter for this feed
 	            INewsAdapter adapter = (INewsAdapter) applicationContext.getBean(feedConfig.getNewsDefinition().getClassName());
 	            // retrieve the feed from this adaptor
-                NewsFeed sharedFeed = adapter.getSyndFeed(feedConfig, request);
+                NewsFeed sharedFeed = adapter.getSyndFeed(feedConfig, request, page, maxStories);
                 if (sharedFeed != null) {
-                    if (sharedFeed.getEntries().size() > maxStories) {
-                        NewsFeed limitedFeed = new NewsFeed();
-                        limitedFeed.setAuthor(sharedFeed.getAuthor());
-                        limitedFeed.setCopyright(sharedFeed.getCopyright());
-                        limitedFeed.setLink(sharedFeed.getLink());
-                        limitedFeed.setTitle(sharedFeed.getTitle());
-                        limitedFeed.setEntries(sharedFeed.getEntries().subList(0, maxStories-1));
-                        model.put("feed", limitedFeed);
-                    } else {
+                    //if (sharedFeed.getEntries().size() > maxStories) {
+                    //    NewsFeed limitedFeed = new NewsFeed();
+                    //    limitedFeed.setAuthor(sharedFeed.getAuthor());
+                    //    limitedFeed.setCopyright(sharedFeed.getCopyright());
+                    //    limitedFeed.setLink(sharedFeed.getLink());
+                    //    limitedFeed.setTitle(sharedFeed.getTitle());
+                    //    limitedFeed.setEntries(sharedFeed.getEntries().subList(0, maxStories-1));
+                    //    model.put("feed", limitedFeed);
+                    //} else {
                         model.put("feed", sharedFeed);
-                    }
+                    //}
                 } else {
                     log.warn("Failed to get feed from adapter.");
                     model.put("message", "The news \"" + feedConfig.getNewsDefinition().getName() + "\" is currently unavailable.");
