@@ -20,8 +20,17 @@
 --%>
 
 <jsp:directive.include file="/WEB-INF/jsp/include.jsp"/>
+<c:set var="n"><portlet:namespace/></c:set>
+    
+<div class="org-jasig-portlet-newsreader">
+	<div class="titlebar portlet-titlebar">
+		<h1 class="title story-title">${storyTitle}</h1>
+	</div>
+                
+	${fullStory}
+	
+	<p>
+		<a href="<portlet:renderURL/>"><img src="<c:url value="/images/arrow_left.png"/>" style="vertical-align: middle"> Return to news feed</a>
+	</p>
+</div>       
 
-<spring:message code="help.detail" htmlEscape="false"/>
-<p>
-	<a href="<portlet:renderURL portletMode="view"/>"><img src="<c:url value="/images/arrow_left.png"/>" style="vertical-align: middle"><spring:message code="back.list"/></a>
-</p>

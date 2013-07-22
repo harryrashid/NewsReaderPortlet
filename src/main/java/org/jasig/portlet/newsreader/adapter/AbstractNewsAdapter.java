@@ -17,21 +17,26 @@
  * under the License.
  */
 
-package org.jasig.portlet.newsreader.service;
+package org.jasig.portlet.newsreader.adapter;
 
-import javax.portlet.PortletRequest;
+public abstract class AbstractNewsAdapter implements INewsAdapter {
+    
+    private static final String NAME_KEY_SUFFIX = ".messages.name";
+    private static final String DESCRIPTION_KEY_SUFFIX = ".messages.description";
 
-/**
- * @author Jen Bourey
- * @version $Revision$
- */
-public interface IViewResolver {
-    
-    public String getSingleFeedView(PortletRequest request);
-    
-    public String getReaderView(PortletRequest request);
-    
-    public String getPreferencesView(PortletRequest request);
+    @Override
+    public String getClassName() {
+        return getClass().getName();
+    }
 
-    public String getFullStoryView(PortletRequest request);
+    @Override
+    public String getNameKey() {
+        return this.getClassName() + NAME_KEY_SUFFIX;
+    }
+
+    @Override
+    public String getDescriptionKey() {
+        return this.getClassName() + DESCRIPTION_KEY_SUFFIX;
+    }
+
 }

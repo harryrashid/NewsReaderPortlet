@@ -28,7 +28,25 @@ import org.jasig.portlet.newsreader.model.NewsFeed;
  * @author Anthony Colebourne
  */
 public interface INewsAdapter {
+    
+    /**
+     * Provides the fully-qualified name of the concrete INewsAdapter class, 
+     * which is used in creating a {@link NewsDefinition}.
+     */
+    String getClassName();
+    
+    /**
+     * Provides the key string for accessing the name of this adapter from the 
+     * messageBundle bean.
+     */
+    String getNameKey();
+    
+    /**
+     * Provides the key string for accessing the description of this adapter 
+     * from the messageBundle bean.
+     */
+    String getDescriptionKey();
 
-    public NewsFeed getSyndFeed(NewsConfiguration config, PortletRequest request, int page, int maxStoriesPerPage) throws NewsException;
+    NewsFeed getSyndFeed(NewsConfiguration config, PortletRequest request, int page, int maxStoriesPerPage) throws NewsException;
 
 }
